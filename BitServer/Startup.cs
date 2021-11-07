@@ -42,10 +42,9 @@ namespace BitServer
 
                 //The following set the connection string to the DB and DB context!
                 #region Add DB Context Support
-                string connectionString = this.Configuration.GetConnectionString("YadBeYadDB");
+                string connectionString = this.Configuration.GetConnectionString("BitDB");
 
-                services.AddDbContext<BitDBContext>(options => options
-                                                                    .UseSqlServer(connectionString));
+               services.AddDbContext<BitDBContext>(options => options.UseSqlServer(connectionString));
                 //.UseLazyLoadingProxies());
                 #endregion
             }

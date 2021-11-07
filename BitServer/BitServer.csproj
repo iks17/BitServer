@@ -13,4 +13,8 @@
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BitServerBL\BitServerBL.csproj" />
+  </ItemGroup>
+
 </Project>

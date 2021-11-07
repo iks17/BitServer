@@ -1,6 +1,8 @@
 ﻿Use master
-Go
 Create Database BitDB
+GO
+
+Use BitDB
 GO
 
 CREATE TABLE "Users"(

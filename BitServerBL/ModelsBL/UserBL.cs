@@ -5,20 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using BitServerBL.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace BitServerBL.Models
+namespace BitServerBL.ModelsBL
 {
-    class UserBL:BitDBContext
+    class UserBL
     {
-        public User Login(string email, string pswd)
-        {
-            User user = this.Users
-                .Include(us => us.Admins)
-                .Include(uc => uc.Customers)
-                .Where(u => u.Email == email && u.Password == pswd).FirstOrDefault();
-
-            return user;
-        }
+        
     }
 }
 

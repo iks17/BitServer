@@ -1,12 +1,22 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BitServerBL.ModelsBL
+namespace BitServerBL.Models
 {
-    class BitDBContextBL
-    {
+    partial class BitDBContextBL : BitDBContext
+    { 
+        public User Login(string email, string pswd)
+        {
+            User user = this.Users
+                .Include(us => us.Admins)
+                .Include(uc => uc.Customers)
+                .Where(u => u.Email == email && u.Password == pswd).FirstOrDefault();
+
+            return user;
+        }
     }
 }

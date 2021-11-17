@@ -98,3 +98,22 @@ ALTER TABLE
     "Loans" ADD CONSTRAINT "loans_businessid_foreign" FOREIGN KEY("BusinessID") REFERENCES "BusinessAccounts"("AccountID");
 ALTER TABLE
     "Loans" ADD CONSTRAINT "loans_privateid_foreign" FOREIGN KEY("PrivateID") REFERENCES "PrivateAccounts"("AccountID");
+
+
+
+    USE [BitDB]
+GO
+
+INSERT INTO [dbo].[Users]
+           ([Email]
+           ,[Password]
+           ,[UserID]
+           ,[Phone Number]
+           ,[RegistartionDate])
+     VALUES
+           ('itay@gmail.com'
+           ,'123'
+           ,'4444444'
+           ,'0532214510'
+           ,'2015-12-17')
+GO

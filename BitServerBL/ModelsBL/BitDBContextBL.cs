@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BitServerBL.Models
 {
-    partial class BitDBContextBL : BitDBContext
+    partial class BitDBContext
     { 
         public User Login(string email, string pswd)
         {

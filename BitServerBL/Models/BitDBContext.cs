@@ -34,6 +34,13 @@ namespace BitServerBL.Models
             }
         }
 
+        public string Test()
+        {
+
+
+            throw new NotImplementedException();
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "Hebrew_CI_AS");

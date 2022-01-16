@@ -5,11 +5,13 @@ GO
 Use BitDB
 GO
 
+select * from Users
+
 CREATE TABLE "Users"(
     "Email" NVARCHAR(255) NOT NULL,
     "Password" NVARCHAR(255) NOT NULL,
     "UserID" INT NOT NULL,
-    "Phone Number" INT NOT NULL,
+    "Phone Number" NVARCHAR(255) NOT NULL,
     "RegistartionDate" DATE NOT NULL
 );
 ALTER TABLE

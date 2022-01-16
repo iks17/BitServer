@@ -34,13 +34,6 @@ namespace BitServerBL.Models
             }
         }
 
-        public string Test()
-        {
-
-
-            throw new NotImplementedException();
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "Hebrew_CI_AS");
@@ -248,7 +241,10 @@ namespace BitServerBL.Models
                     .IsRequired()
                     .HasMaxLength(255);
 
-                entity.Property(e => e.PhoneNumber).HasColumnName("Phone Number");
+                entity.Property(e => e.PhoneNumber)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .HasColumnName("Phone Number");
 
                 entity.Property(e => e.RegistartionDate).HasColumnType("date");
             });

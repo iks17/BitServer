@@ -5,8 +5,6 @@ GO
 Use BitDB
 GO
 
-select * from Users
-
 CREATE TABLE "Users"(
     "Email" NVARCHAR(255) NOT NULL,
     "Password" NVARCHAR(255) NOT NULL,

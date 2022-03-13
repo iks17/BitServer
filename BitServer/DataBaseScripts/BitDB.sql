@@ -8,6 +8,7 @@ GO
 CREATE TABLE "Users"(
     "Email" NVARCHAR(255) NOT NULL,
     "Password" NVARCHAR(255) NOT NULL,
+    "UserName" NVARCHAR(255) NOT NULL,
     "UserID" INT NOT NULL,
     "Phone Number" NVARCHAR(255) NOT NULL,
     "RegistartionDate" DATE NOT NULL
@@ -19,6 +20,7 @@ CREATE TABLE "Customers"(
     "Address" NVARCHAR(255) NOT NULL,
     "Country" NVARCHAR(255) NOT NULL,
     "First Name" NVARCHAR(255) NOT NULL,
+    "UserName" NVARCHAR(255) NOT NULL,
     "Gender" NCHAR(255) NOT NULL,
     "UserID" INT NOT NULL
 );
@@ -37,6 +39,7 @@ CREATE TABLE "BusinessAccounts"(
     "BusinessEmail" NVARCHAR(255) NOT NULL,
     "BusinessPassword" NVARCHAR(255) NOT NULL,
     "BusinessName" NVARCHAR(255) NOT NULL,
+    "UserName" NVARCHAR(255) NOT NULL,
     "ActiveManagersNum" INT NOT NULL,
     "BusibessAdress" NVARCHAR(255) NOT NULL,
     "Anual Income" INT NOT NULL,
@@ -50,6 +53,7 @@ ALTER TABLE
     "BusinessAccounts" ADD CONSTRAINT "businessaccounts_accountid_primary" PRIMARY KEY("AccountID");
 CREATE TABLE "PrivateAccounts"(
     "AccountID" NVARCHAR(255) NOT NULL,
+    "UserName" NVARCHAR(255) NOT NULL,
     "DateOfBirth" DATE NOT NULL,
     "MainCurrency" NCHAR(255) NOT NULL,
     "AnualIncome" INT NOT NULL,
@@ -78,6 +82,24 @@ CREATE TABLE "TransactionLogs"(
     "TransactionDate" DATE NOT NULL,
     "IsConfirmed" BIT NOT NULL
 );
+CREATE TABLE [dbo].[Cards](
+	[Name] [nvarchar](50) NOT NULL,
+	[ID] [nvarchar](16) NOT NULL,
+	[Date] [date] NOT NULL,
+	[CVC] [nchar](3) NOT NULL,
+	[UserID] [int] NOT NULL,
+ CONSTRAINT [PK_Cards] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[Cards]  WITH CHECK ADD  CONSTRAINT [FK_Cards_Cards] FOREIGN KEY([ID])
+REFERENCES [dbo].[Cards] ([ID])
+GO
+
+ALTER TABLE [dbo].[Cards] CHECK CONSTRAINT [FK_Cards_Cards]
 ALTER TABLE
     "TransactionLogs" ADD CONSTRAINT "transactionlogs_transactionid_primary" PRIMARY KEY("TransactionID");
 ALTER TABLE
@@ -107,12 +129,14 @@ GO
 INSERT INTO [dbo].[Users]
            ([Email]
            ,[Password]
+           ,[UserName]
            ,[UserID]
            ,[Phone Number]
            ,[RegistartionDate])
      VALUES
            ('itay@gmail.com'
            ,'123'
+           ,'Itay'
            ,'4444444'
            ,'0532214510'
            ,'2015-12-17')

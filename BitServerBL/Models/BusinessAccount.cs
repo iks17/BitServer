@@ -16,6 +16,7 @@ namespace BitServerBL.Models
         public string BusinessEmail { get; set; }
         public string BusinessPassword { get; set; }
         public string BusinessName { get; set; }
+        public string UserName { get; set; }
         public int ActiveManagersNum { get; set; }
         public string BusibessAdress { get; set; }
         public int AnualIncome { get; set; }

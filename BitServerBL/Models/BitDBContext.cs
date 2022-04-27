@@ -19,6 +19,7 @@ namespace BitServerBL.Models
 
         public virtual DbSet<Admin> Admins { get; set; }
         public virtual DbSet<BusinessAccount> BusinessAccounts { get; set; }
+        public virtual DbSet<Card> Cards { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Loan> Loans { get; set; }
         public virtual DbSet<PrivateAccount> PrivateAccounts { get; set; }
@@ -91,11 +92,36 @@ namespace BitServerBL.Models
                     .HasMaxLength(255)
                     .IsFixedLength(true);
 
+                entity.Property(e => e.UserName)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
                 entity.HasOne(d => d.Customer)
                     .WithMany(p => p.BusinessAccounts)
                     .HasForeignKey(d => d.CustomerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("businessaccounts_customerid_foreign");
+            });
+
+            modelBuilder.Entity<Card>(entity =>
+            {
+                entity.Property(e => e.Id)
+                    .HasMaxLength(16)
+                    .HasColumnName("ID");
+
+                entity.Property(e => e.Cvc)
+                    .IsRequired()
+                    .HasMaxLength(3)
+                    .HasColumnName("CVC")
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.Date).HasColumnType("date");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.UserId).HasColumnName("UserID");
             });
 
             modelBuilder.Entity<Customer>(entity =>
@@ -123,6 +149,10 @@ namespace BitServerBL.Models
                     .IsFixedLength(true);
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
+
+                entity.Property(e => e.UserName)
+                    .IsRequired()
+                    .HasMaxLength(255);
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Customers)
@@ -184,6 +214,10 @@ namespace BitServerBL.Models
                     .HasMaxLength(255)
                     .IsFixedLength(true);
 
+                entity.Property(e => e.UserName)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
                 entity.HasOne(d => d.Customer)
                     .WithMany(p => p.PrivateAccounts)
                     .HasForeignKey(d => d.CustomerId)
@@ -243,10 +277,14 @@ namespace BitServerBL.Models
 
                 entity.Property(e => e.PhoneNumber)
                     .IsRequired()
-                    .HasMaxLength(1)
+                    .HasMaxLength(255)
                     .HasColumnName("Phone Number");
 
                 entity.Property(e => e.RegistartionDate).HasColumnType("date");
+
+                entity.Property(e => e.UserName)
+                    .IsRequired()
+                    .HasMaxLength(255);
             });
 
             OnModelCreatingPartial(modelBuilder);

@@ -13,6 +13,7 @@ namespace BitServerBL.Models
         }
 
         public string AccountId { get; set; }
+        public string UserName { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string MainCurrency { get; set; }
         public int AnualIncome { get; set; }

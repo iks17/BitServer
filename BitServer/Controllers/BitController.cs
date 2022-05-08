@@ -86,6 +86,18 @@ namespace BitServer.Controllers
                 return isUnique;
             }
         }
+        [Route("GetTotalBalance")]
+        [HttpGet]
+        public double GetTotalBalance()
+        {
+            User u = HttpContext.Session.GetObject<User>("theUser");
+            if(u == null)
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                return -1;
+            }
+            return context.GetTotalBalance(u.UserName);
+        }
         //[Route("Get")]
         //[HttpGet]
 

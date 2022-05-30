@@ -13,7 +13,7 @@ namespace BitServerBL.Models
         {
             User user = this.Users
                 .Include(us => us.Admins)
-                .Include(uc => uc.Customers)
+                .Include(uc => uc.Customers).ThenInclude(c=>c.BusinessAccounts).Include(uc=>uc.Customers).ThenInclude(cust=>cust.PrivateAccounts)
                 .Where(u => u.Email == email && u.Password == pswd).FirstOrDefault();
 
             return user;
@@ -21,15 +21,23 @@ namespace BitServerBL.Models
 
         public bool SignUp(User u)
         {
-
-            if (u != null)
+            try
             {
-                this.Users.Add(u);
-                this.SaveChanges();
-                return true;
-            }
+                if (u != null)
+                {
+                    this.Users.Add(u);
+                    this.SaveChanges();
+                    return true;
+                }
 
-            return false;
+
+                return false;
+            }
+            catch(Exception e)
+            {
+                return false;
+            }
+          
 
         }
         public bool CheckUniqueness(string email, string userName)

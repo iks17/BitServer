@@ -12,7 +12,6 @@ namespace BitServerBL.Models
         public User Login(string email, string pswd)
         {
             User user = this.Users
-                .Include(us => us.Admins)
                 .Include(uc => uc.Customers).ThenInclude(c=>c.BusinessAccounts).Include(uc=>uc.Customers).ThenInclude(cust=>cust.PrivateAccounts)
                 .Where(u => u.Email == email && u.Password == pswd).FirstOrDefault();
 

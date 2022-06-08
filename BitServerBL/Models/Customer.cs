@@ -16,11 +16,7 @@ namespace BitServerBL.Models
         }
 
         public int CustomerId { get; set; }
-        public string Address { get; set; }
-        public string Country { get; set; }
-        public string FirstName { get; set; }
         public string UserName { get; set; }
-        public string Gender { get; set; }
         public int UserId { get; set; }
 
         public virtual User User { get; set; }

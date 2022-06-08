@@ -9,7 +9,6 @@ namespace BitServerBL.Models
     {
         public User()
         {
-            Admins = new HashSet<Admin>();
             Customers = new HashSet<Customer>();
         }
 
@@ -18,9 +17,7 @@ namespace BitServerBL.Models
         public string UserName { get; set; }
         public int UserId { get; set; }
         public string PhoneNumber { get; set; }
-        public DateTime RegistartionDate { get; set; }
 
-        public virtual ICollection<Admin> Admins { get; set; }
         public virtual ICollection<Customer> Customers { get; set; }
     }
 }

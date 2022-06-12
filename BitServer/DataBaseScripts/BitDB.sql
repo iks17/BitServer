@@ -16,9 +16,11 @@ CREATE TABLE "Users"(
 
 ALTER TABLE
     "Users" ADD CONSTRAINT "users_userid_primary" PRIMARY KEY("UserID");
+
+
 CREATE TABLE "Customers"(
     "CustomerID" INT NOT NULL,
-    "UserName" NVARCHAR(255) NOT NULL,
+    
     "UserID" INT NOT NULL
 );
 ALTER TABLE
@@ -26,7 +28,7 @@ ALTER TABLE
 
 CREATE TABLE "BusinessAccounts"(
     "AccountID"INT NOT NULL,
-    "UserName" NVARCHAR(255) NOT NULL,
+   
     "TotalBalance" FLOAT NOT NULL,
     "CustomerID" INT NOT NULL
 );
@@ -34,7 +36,7 @@ ALTER TABLE
     "BusinessAccounts" ADD CONSTRAINT "businessaccounts_accountid_primary" PRIMARY KEY("AccountID");
 CREATE TABLE "PrivateAccounts"(
     "AccountID" INT NOT NULL,
-    "UserName" NVARCHAR(255) NOT NULL,
+    
     "TotalBalance" FLOAT NOT NULL,
     "CustomerID" INT NOT NULL
 );

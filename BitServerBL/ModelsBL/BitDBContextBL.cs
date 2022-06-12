@@ -54,7 +54,7 @@ namespace BitServerBL.Models
         }
         public double GetTotalBalance(string userName)
         {
-            PrivateAccount privateAccount = this.PrivateAccounts.Where(p => p.UserName == userName).FirstOrDefault();
+            PrivateAccount privateAccount = this.PrivateAccounts.Where(p => p.Customer.User.UserName == userName).FirstOrDefault();
             return privateAccount.TotalBalance;
         }
 

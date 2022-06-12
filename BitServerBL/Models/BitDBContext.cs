@@ -48,10 +48,6 @@ namespace BitServerBL.Models
 
                 entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
 
-                entity.Property(e => e.UserName)
-                    .IsRequired()
-                    .HasMaxLength(255);
-
                 entity.HasOne(d => d.Customer)
                     .WithMany(p => p.BusinessAccounts)
                     .HasForeignKey(d => d.CustomerId)
@@ -88,10 +84,6 @@ namespace BitServerBL.Models
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
 
-                entity.Property(e => e.UserName)
-                    .IsRequired()
-                    .HasMaxLength(255);
-
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Customers)
                     .HasForeignKey(d => d.UserId)
@@ -109,10 +101,6 @@ namespace BitServerBL.Models
                     .HasColumnName("AccountID");
 
                 entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
-
-                entity.Property(e => e.UserName)
-                    .IsRequired()
-                    .HasMaxLength(255);
 
                 entity.HasOne(d => d.Customer)
                     .WithMany(p => p.PrivateAccounts)

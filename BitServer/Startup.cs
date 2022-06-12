@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
-using System.Text.Json;
 using System.Text.Json.Serialization;
 using BitServerBL.Models;
 
@@ -45,9 +44,15 @@ namespace BitServer
                 string connectionString = this.Configuration.GetConnectionString("BitDB");
 
                services.AddDbContext<BitDBContext>(options => options.UseSqlServer(connectionString));
-                //.UseLazyLoadingProxies());
-                #endregion
-            }
+            //.UseLazyLoadingProxies());
+            #endregion
+            
+            #region Add DB Context Support
+            
+
+            //Add SignalR
+            services.AddSignalR();
+        }
 
             // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
             public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -66,5 +71,6 @@ namespace BitServer
                     endpoints.MapControllers();
                 });
             }
+        #endregion
     }
 }

@@ -41,7 +41,7 @@ namespace BitServerBL.Models
         }
         public bool CheckUniqueness(string email, string userName)
         {
-            User user = this.Users.Where(u => u.Email == email || u.Email == userName).FirstOrDefault();
+            User user = this.Users.Where(u => u.Email == email || u.UserName == userName).FirstOrDefault();
 
             if (user == null)//the email and the user name are unique
             {

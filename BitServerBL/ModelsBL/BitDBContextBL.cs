@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 namespace BitServerBL.Models
 {
     partial class BitDBContext
-    { 
+    {
         public User Login(string email, string pswd)
         {
             User user = this.Users
-                .Include(uc => uc.Customers).ThenInclude(c=>c.BusinessAccounts).Include(uc=>uc.Customers).ThenInclude(cust=>cust.PrivateAccounts)
+                .Include(uc => uc.Customers).ThenInclude(c => c.BusinessAccounts).Include(uc => uc.Customers).ThenInclude(cust => cust.PrivateAccounts)
                 .Where(u => u.Email == email && u.Password == pswd).FirstOrDefault();
 
             return user;
@@ -32,11 +32,11 @@ namespace BitServerBL.Models
 
                 return false;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return false;
             }
-          
+
 
         }
         public bool CheckUniqueness(string email, string userName)
@@ -56,6 +56,37 @@ namespace BitServerBL.Models
         {
             PrivateAccount privateAccount = this.PrivateAccounts.Where(p => p.Customer.User.UserName == userName).FirstOrDefault();
             return privateAccount.TotalBalance;
+        }
+
+        public void SendMoney(string MyNumber, int amt, string OtherNumber)
+        {
+            try
+            { 
+           PrivateAccount loggeduserAcount = this.PrivateAccounts.Where(u=>u.Customer.User.PhoneNumber==MyNumber).FirstOrDefault();
+           PrivateAccount anotherUserAcount = this.PrivateAccounts.Where(u => u.Customer.User.PhoneNumber  == OtherNumber).FirstOrDefault();
+            loggeduserAcount.TotalBalance -= amt;
+            anotherUserAcount.TotalBalance += amt;
+            this.SaveChanges();
+                TransactionLog transactionLog = new TransactionLog()
+                {
+                    SenderId = loggeduserAcount.CustomerId,
+                ReceiverId=anotherUserAcount.CustomerId,
+                SentAmt = amt,
+                SenderAccount=loggeduserAcount.Customer.User.UserName,
+                ReceiverAccount=anotherUserAcount.Customer.User.UserName,
+                TransactionDate=DateTime.Now,
+                IsConfirmed=true
+            };
+                this.TransactionLogs.Add(transactionLog);
+                this.SaveChanges();
+            }
+            catch(Exception e)
+            {
+                throw (e);
+            }
+           
+
+
         }
 
     }

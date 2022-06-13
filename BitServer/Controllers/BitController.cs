@@ -113,7 +113,25 @@ namespace BitServer.Controllers
         //    return null;
         //}
 
-
+        [HttpGet]
+        [Route("TransferMoney")]
+        public void TransferMoney([FromQuery] int amount, [FromQuery] string phoneNumber)
+        {
+            User user = HttpContext.Session.GetObject<User>("theUser");
+            try
+            { 
+                context.SendMoney(user.PhoneNumber,amount, phoneNumber);
+            }
+            catch(Exception e)
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                return;
+            }
+            
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return;
+            
+        }
 
 
     }

@@ -132,7 +132,43 @@ namespace BitServer.Controllers
                 return;
             
         }
+        [HttpGet]
+        [Route("GetUserReceivedTransaction")]
+        public List<TransactionLog> GetUserReceivedTransaction()
+        {
+            User user = HttpContext.Session.GetObject<User>("theUser");
+            Customer customer = user.Customers.FirstOrDefault();
+            if(customer!=null)
+            { 
+                List<TransactionLog> list = context.GetUserReceivedTransaction(customer.CustomerId);
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return list;
+            }
+            else
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                return null;
+            }
+        }
+        [HttpGet]
+        [Route("SendMoneyToMe")]
+        public void SendMoneyToMe([FromQuery] int amount)
+        {
+            User user = HttpContext.Session.GetObject<User>("theUser");
+            try
+            {
+                context.SendMoney(user.PhoneNumber, amount);
+            }
+            catch (Exception e)
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                return;
+            }
 
+            Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+            return;
+
+        }
 
     }
 

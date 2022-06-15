@@ -35,16 +35,14 @@ namespace BitServerBL.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("Relational:Collation", "Hebrew_CI_AS");
+            modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
 
             modelBuilder.Entity<BusinessAccount>(entity =>
             {
                 entity.HasKey(e => e.AccountId)
                     .HasName("businessaccounts_accountid_primary");
 
-                entity.Property(e => e.AccountId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("AccountID");
+                entity.Property(e => e.AccountId).HasColumnName("AccountID");
 
                 entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
 
@@ -78,9 +76,7 @@ namespace BitServerBL.Models
 
             modelBuilder.Entity<Customer>(entity =>
             {
-                entity.Property(e => e.CustomerId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("CustomerID");
+                entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
 
@@ -96,9 +92,7 @@ namespace BitServerBL.Models
                 entity.HasKey(e => e.AccountId)
                     .HasName("privateaccounts_accountid_primary");
 
-                entity.Property(e => e.AccountId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("AccountID");
+                entity.Property(e => e.AccountId).HasColumnName("AccountID");
 
                 entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
 
@@ -114,9 +108,7 @@ namespace BitServerBL.Models
                 entity.HasKey(e => e.TransactionId)
                     .HasName("transactionlogs_transactionid_primary");
 
-                entity.Property(e => e.TransactionId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("TransactionID");
+                entity.Property(e => e.TransactionId).HasColumnName("TransactionID");
 
                 entity.Property(e => e.ReceiverAccount)
                     .IsRequired()

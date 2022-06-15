@@ -1,4 +1,5 @@
 ﻿Use master
+
 Create Database BitDB
 GO
 
@@ -19,7 +20,7 @@ ALTER TABLE
 
 
 CREATE TABLE "Customers"(
-    "CustomerID" INT NOT NULL,
+    "CustomerID" INT IDENTITY(1 ,1)  NOT NULL,
     
     "UserID" INT NOT NULL
 );
@@ -27,7 +28,7 @@ ALTER TABLE
     "Customers" ADD CONSTRAINT "customers_customerid_primary" PRIMARY KEY("CustomerID");
 
 CREATE TABLE "BusinessAccounts"(
-    "AccountID"INT NOT NULL,
+    "AccountID" INT IDENTITY(1 ,1) NOT NULL,
    
     "TotalBalance" FLOAT NOT NULL,
     "CustomerID" INT NOT NULL
@@ -35,7 +36,7 @@ CREATE TABLE "BusinessAccounts"(
 ALTER TABLE
     "BusinessAccounts" ADD CONSTRAINT "businessaccounts_accountid_primary" PRIMARY KEY("AccountID");
 CREATE TABLE "PrivateAccounts"(
-    "AccountID" INT NOT NULL,
+    "AccountID" INT IDENTITY(1 ,1)  NOT NULL,
     
     "TotalBalance" FLOAT NOT NULL,
     "CustomerID" INT NOT NULL
@@ -44,7 +45,7 @@ ALTER TABLE
     "PrivateAccounts" ADD CONSTRAINT "privateaccounts_accountid_primary" PRIMARY KEY("AccountID");
 
 CREATE TABLE "TransactionLogs"(
-    "TransactionID" INT NOT NULL,
+    "TransactionID" INT IDENTITY(1 ,1)  NOT NULL,
     "SentAmt" INT NOT NULL,
     "SenderID" INT NOT NULL,
     "ReceiverID" INT NOT NULL,

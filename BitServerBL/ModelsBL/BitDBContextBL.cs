@@ -62,8 +62,8 @@ namespace BitServerBL.Models
         {
             try
             { 
-           PrivateAccount loggeduserAcount = this.PrivateAccounts.Where(u=>u.Customer.User.PhoneNumber==MyNumber).FirstOrDefault();
-           PrivateAccount anotherUserAcount = this.PrivateAccounts.Where(u => u.Customer.User.PhoneNumber  == OtherNumber).FirstOrDefault();
+           PrivateAccount loggeduserAcount = this.PrivateAccounts.Where(u=>u.Customer.User.PhoneNumber==MyNumber).Include(t=>t.Customer).ThenInclude(tu=>tu.User).FirstOrDefault();
+           PrivateAccount anotherUserAcount = this.PrivateAccounts.Where(u => u.Customer.User.PhoneNumber==OtherNumber).Include(t => t.Customer).ThenInclude(tu => tu.User).FirstOrDefault();
             loggeduserAcount.TotalBalance -= amt;
             anotherUserAcount.TotalBalance += amt;
             this.SaveChanges();
@@ -82,12 +82,31 @@ namespace BitServerBL.Models
             }
             catch(Exception e)
             {
-                throw (e);
+                Console.WriteLine(e.Message);
+                throw new ArgumentNullException();
             }
-           
-
-
         }
+        public void SendMoney(string MyNumber, int amt)
+        {
+            try
+            {
+                PrivateAccount loggeduserAcount = this.PrivateAccounts.Where(u => u.Customer.User.PhoneNumber == MyNumber).Include(t => t.Customer).ThenInclude(tu => tu.User).FirstOrDefault();
+                loggeduserAcount.TotalBalance += amt;
+                this.SaveChanges();
+                
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                throw new ArgumentNullException();
+            }
+        }
+        public List<TransactionLog> GetUserReceivedTransaction(int customerId)
+        {
+            List<TransactionLog> transactionLogs = this.TransactionLogs.Where(u=>u.ReceiverId==customerId).ToList<TransactionLog>();
+            return transactionLogs;
+        }
+        
 
     }
 

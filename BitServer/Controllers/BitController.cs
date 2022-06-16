@@ -169,7 +169,58 @@ namespace BitServer.Controllers
             return;
 
         }
+        [HttpGet]
+        [Route("HasCreditCard")]
+        public bool HasCreditCard()
+        {
+            User user = HttpContext.Session.GetObject<User>("theUser");
+            bool con= context.HasCreditCard(user.UserId);
+            if (con)
+            {
+                
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return con;
+            }
+            else
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                return con;
+            }
+        }
+        [HttpPost]
+        [Route("AddCreditCard")]
+        public bool AddCreditCard([FromBody]Card card)
+        {
+            try
+            {
+                context.AddCreditCard(card);
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return true;
+            }
+            catch(Exception e)
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                return false;
+            }
+        }
+        [HttpGet]
+        [Route("GetCard")]
+        public Card GetCard()
+        {
+            User user = HttpContext.Session.GetObject<User>("theUser");
+            Card con = context.GetCard(user.UserId);
+            if (con!=null)
+            {
 
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return con;
+            }
+            else
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                return con;
+            }
+        }
     }
 
 }

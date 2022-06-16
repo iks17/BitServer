@@ -106,8 +106,24 @@ namespace BitServerBL.Models
             List<TransactionLog> transactionLogs = this.TransactionLogs.Where(u=>u.ReceiverId==customerId).ToList<TransactionLog>();
             return transactionLogs;
         }
-        
-
+        public bool HasCreditCard(int userId)
+        {
+            Card card = this.Cards.Where(cd => cd.UserId == userId).FirstOrDefault();
+            return card != null;
+        }
+        public void AddCreditCard(Card card)
+        {
+            if(card != null)
+            {
+                this.Cards.Add(card);
+                this.SaveChanges();
+            }
+        }
+        public Card GetCard(int userId)
+        {
+            Card card = this.Cards.Where(cd => cd.UserId == userId).FirstOrDefault();
+            return card ;
+        }
     }
 
 
